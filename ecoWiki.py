@@ -11,8 +11,21 @@ def getCountryWiki(x):
         return 'Puducherry'
     if x == 'us-wa':
         return 'Washington (U.S. state)|Washington'
+    if x == 'cg':
+        return 'Republic of the Congo'
+    if x == 're':
+        return 'Réunion'
+    if x == 'ge':
+        return 'Georgia (country)|Georgia'
     else:
         return ecoInfo.getCountry(x)
+
+def getEcoregionWiki(x):
+    ecoregion = ecoInfo.getEcoregion(x)
+    if ecoregion == 'Chaco':
+        return 'Chaco (WWF ecoregion)'
+    else:
+        return ecoregion
 
 def printWiki(cCodes, dst):
     result = []
@@ -39,15 +52,15 @@ def printWiki(cCodes, dst):
       
     with open(dst, 'w') as f:
         f.write('{| class="wikitable sortable"\n')
-        f.write('| \'\'\'Ecozone\'\'\'\n')
-        f.write('| \'\'\'Biome\'\'\'\n')
-        f.write('| \'\'\'Ecoregion\'\'\'\n')
+        f.write('| \'\'\'[[Ecozone]]\'\'\'\n')
+        f.write('| \'\'\'[[Biome]]\'\'\'\n')
+        f.write('| \'\'\'[[Ecoregion]]\'\'\'\n')
         f.write('| \'\'\'Country\'\'\'\n')
         for entry in sorted(result, mySort):
             f.write('|-\n')
             f.write('| [[' + ecoInfo.getZone(entry[0]) + ']]\n')
             f.write('| [[' + ecoInfo.getBiome(entry[1]) + ']]\n')
-            f.write('| [[' + ecoInfo.getEcoregion(entry[2]) + ']]\n')
+            f.write('| [[' + getEcoregionWiki(entry[2]) + ']]\n')
             f.write('| [[' + getCountryWiki(entry[3]) + ']]\n')
         f.write('|}\n')                        
 
