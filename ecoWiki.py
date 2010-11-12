@@ -1,4 +1,5 @@
 import ecoInfo
+# -*- coding: iso-8859-1 -*-
 
 def getCountryWiki(x):
     if x == 'us-ga':
