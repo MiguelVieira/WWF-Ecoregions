@@ -24,7 +24,7 @@ for x in csv.reader(open('biomes.csv'), delimiter='\t'):
 # process ecoregions
 _ecoregionFromECode = {}
 _bCodeFromECode = {}
-for x in csv.reader(open('ecoregions.csv')):
+for x in csv.reader(open('ecoregions.csv'), delimiter='\t'):
     code = x[0].lower().strip()
     _bCodeFromECode[code] = int(x[1])
     _ecoregionFromECode[code] = x[2].strip()
@@ -39,17 +39,17 @@ for x in csv.reader(open('Countries by ecoregion.csv')):
     if 1 < len(x):
         cCode = x[1].lower().strip()
         eCode = x[0].lower().strip()
-        if _eCodesFromCCode.has_key(cCode):
+        if cCode in _eCodesFromCCode:
             _eCodesFromCCode[cCode].add(eCode)
         else:
             _eCodesFromCCode[cCode] = set([eCode])
-        if _cCodesFromECode.has_key(eCode):
+        if eCode in _cCodesFromECode:
             _cCodesFromECode[eCode].add(cCode)
         else:
             _cCodesFromECode[eCode] = set([cCode])
         if 2 < len(cCode):
             code = cCode[0:2]
-            if _eCodesFromCCode.has_key(code):
+            if code in _eCodesFromCCode:
                 _eCodesFromCCode[code].add(eCode)
             else:
                 _eCodesFromCCode[code] = set([eCode])
@@ -91,7 +91,7 @@ def _splitByZCode(eCodes):
         zCode = _getZCode(eCode)
         zName = _zoneFromZCode[zCode]
         zTuple = (zCode, zName)
-        if result.has_key(zTuple):
+        if zTuple in result:
             result[zTuple].add(eCode)
         else:
             result[zTuple] = set([eCode])
@@ -103,7 +103,7 @@ def _splitByCCode(eCodes, useSubdivisions):
         for cCode in _cCodesFromECode[eCode]:
             code = cCode[0:2] if not useSubdivisions else cCode
             cTuple = (code, _countryFromCCode[code])
-            if result.has_key(cTuple):
+            if cTuple in result:
                 result[cTuple].add(eCode)
             else:
                 result[cTuple] = set([eCode])
@@ -114,7 +114,7 @@ def _splitByBCode(eCodes):
     for eCode in eCodes:
         bCode = _bCodeFromECode[eCode]
         bTuple = (bCode, _biomeFromBCode[bCode])
-        if result.has_key(bTuple):
+        if bTuple in result:
             result[bTuple].add(eCode)
         else:
             result[bTuple] = set([eCode])
