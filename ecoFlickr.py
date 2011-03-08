@@ -13,8 +13,8 @@ def printBCodeFlickr(code):
     return '<i>' + ecoInfo.getBiome(code) + '</i><br>'
 
 def flickrLink(eCode):
-    eTag = ecoInfo.getEcoregion(eCode).replace(' ','').replace('-','').replace('.','')
-    prefix = 'http://www.flickr.com/search/groups/?m=pool&w=1334707%40N21&q='
+    eTag = ecoInfo.getEcoregion(eCode).replace(' ','').replace('-','').replace('.','').replace(',','')
+    prefix = 'http://www.flickr.com/search/groups/?m=pool&w=1334707%40N21&s=int&q='
     link = prefix + eTag
     return link
 
